@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        div {
+            width: 25vw;
+            background-color: white;
+            padding: 20px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        label {
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        input {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        span {
+            color: red;
+            font-size: 12px;
+            display: none; 
+        }
+        body {
+            background-color: whitesmoke;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <form id="myform">
+            <label>USERNAME:</label><br>
+            <input type="text" id="username" /><br>
+            <span id="usernameError">*Must contain only alphabets</span><br>
+
+            <label>PASSWORD:</label><br>
+            <input type="password" id="password" /><br>
+            <span id="passwordError">*Password must contain "A$2a"</span><br>
+
+            <label>MOBILE NUMBER:</label><br>
+            <input type="text" id="mobile" /><br>
+            <span id="mobileError">*Must be a valid 10-digit number</span><br>
+
+            <label>BATCH:</label><br>
+            <input type="text" id="batch" /><br>
+            <span id="batchError">*Batch name required</span><br>
+
+            <input type="submit" id="submit" value="Submit" />
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById("myform");
+        const username = document.getElementById("username");
+        const password = document.getElementById("password");
+        const mobile = document.getElementById("mobile");
+        const batch = document.getElementById("batch");
+
+        const usernameError = document.getElementById("usernameError");
+        const passwordError = document.getElementById("passwordError");
+        const mobileError = document.getElementById("mobileError");
+        const batchError = document.getElementById("batchError");
+
+                const usernamePattern = /^[a-zA-Z]+$/;
+        const passwordPattern = /A\$2a/;
+        const mobilePattern = /^[0-9]{10}$/;
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault(); 
+           
+            let boolean = true;
+            
+            if (!username.value.match(usernamePattern)) {
+                usernameError.style.display = "block";
+                boolean = false;
+            } else {
+                usernameError.style.display = "none";
+            }
+
+           
+            if (!password.value.match(passwordPattern)) {
+                passwordError.style.display = "block";
+                boolean = false;
+            } else {
+                passwordError.style.display = "none";
+            }
+
+           
+            if (!mobile.value.match(mobilePattern)) {
+                mobileError.style.display = "block";
+                boolean = false;
+            } else {
+                mobileError.style.display = "none";
+            }
+
+            if (batch.value.trim() === "") {
+                batchError.style.display = "block";
+                valid = false;
+            } else {
+                batchError.style.display = "none";
+            }
+
+         
+            if (valid) {
+                alert("Form submitted successfully!");
+                form.reset(); 
+            }
+        });
+    </script>
+</body>
+</html>
